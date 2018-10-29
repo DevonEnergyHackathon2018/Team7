@@ -1,0 +1,14 @@
+@import "~@angular/material/theming";
+
+@include mat-core();
+
+$dvn-primary: mat-palette($mat-grey, 800, 700, 900);
+$dvn-accent: mat-palette($mat-deep-orange, A400, A200, A700);
+
+// The warn palette is optional (defaults to red).
+$dvn-warn: mat-palette($mat-red);
+
+// Create the theme object (a Sass map containing all of the palettes).
+$dvn-theme: mat-light-theme($dvn-primary, $dvn-accent, $dvn-warn);
+
+@include angular-material-theme($dvn-theme);

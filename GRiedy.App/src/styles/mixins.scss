@@ -1,0 +1,13 @@
+@import "theme";
+
+@mixin primary-color {
+  $primary-color: map-get($dvn-primary, 800);
+  color: $primary-color;
+}
+
+@mixin primary-background-contrast-color {
+  $primary-color: map-get($dvn-primary, 400);
+  $font-color: map-get(map-get($dvn-primary, contrast), 400);
+  background-color: $primary-color;
+  color: $font-color !important;
+}

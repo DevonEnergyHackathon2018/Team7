@@ -1,0 +1,6 @@
+<div *ngIf="isAuthenticated">
+  <dvn-top-nav></dvn-top-nav>
+  <router-outlet></router-outlet>
+</div>
+
+<div class="busy" [hidden]="!isBusy"></div>
