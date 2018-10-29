@@ -1,0 +1,21 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "envName": {
+      "value": "ci"
+    },
+    "audience": {
+      "value": "<Application Registration App ID URI>"
+    },
+    "clientId": {
+      "value": "<Application Registration App ID>"
+    },
+    "dataServerAdminPassword": {
+      "value": "<Data Server Admin Password>"
+    },
+    "clientSecret": {
+      "value": "<Application Registration auth key>"
+    }
+  }
+}
