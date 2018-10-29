@@ -6,6 +6,11 @@ import { NotFoundComponent } from "./not-found/not-found.component";
 
 const routes: Routes = [
   { path: "", pathMatch: "full", component: HomeComponent },
+  {
+    path: "compressor-dashboard",
+    loadChildren:
+      "app/compressor-dashboard/compressor-dashboard.module#CompressorDashboardModule"
+  },
   { path: "current-user", pathMatch: "full", component: CurrentUserComponent },
   { path: "**", pathMatch: "full", component: NotFoundComponent }
 ];

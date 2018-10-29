@@ -1,0 +1,14 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>{{compressor.CompressorName}}</mat-card-title>
+    <mat-card-subtitle>{{compressor.CompressorId}}</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <span *ngIf="compressor.RiskRanking < 3" class="fa fa-smile-o risk-ranking"></span>
+    <span *ngIf="compressor.RiskRanking >= 3 && compressor.RiskRanking <= 6" class="fa fa-meh-o risk-ranking"></span>
+    <span *ngIf="compressor.RiskRanking > 6" class="fa fa-frown-o risk-ranking"></span>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-button color="primary">details</button>
+  </mat-card-actions>
+</mat-card>

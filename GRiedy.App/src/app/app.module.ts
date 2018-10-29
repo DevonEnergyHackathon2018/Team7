@@ -23,6 +23,7 @@ import { UserService } from "./services/user.service";
 import { ServiceFactory } from "./service.factory";
 
 import { CurrentUserComponent } from "./current-user/current-user.component";
+import { CompressorService } from "./services/compressor.service";
 
 @Injectable()
 export class AppODataConfig extends ODataConfiguration {
@@ -65,7 +66,8 @@ export class AppODataConfig extends ODataConfiguration {
     ServiceFactory,
     BusyService,
     MessageService,
-    UserService
+    UserService,
+    CompressorService
   ],
   bootstrap: [AppComponent]
 })

@@ -1,5 +1,5 @@
 <div class="page-content">
-  <p>update compressor data (tsv)</p>
+  <h2>upload compressor data (tsv)</h2>
   <p-fileUpload name="demo[]" url="http://localhost:5000/CompressorUpload" (onUpload)="onUpload($event)" accept="text/*">
     <ng-template pTemplate="content">
       <ul *ngIf="uploadedFiles.length">
