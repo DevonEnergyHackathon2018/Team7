@@ -104,6 +104,7 @@
     <Compile Include="Jobs\Severity.cs" />
     <Compile Include="LibModule.cs" />
     <Compile Include="LogInterceptor.cs" />
+    <Compile Include="Models\CompressorUpload.cs" />
     <Compile Include="Models\Config.cs" />
     <Compile Include="Models\ODataArrayContext.cs" />
     <Compile Include="Models\User.cs" />
