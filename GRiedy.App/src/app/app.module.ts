@@ -1,9 +1,11 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { NgModule } from "@angular/core";
+import { NgModule, Injectable } from "@angular/core";
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { Adal5Service } from "adal-angular5";
+import { ODataConfiguration, ODataServiceFactory } from "angular-odata-es5";
 
+import { environment } from "../environments/environment";
 import { AppRoutingModule } from "./app-routing.module";
 import { CoreModule } from "./core/core.module";
 import { SharedModule } from "./shared/shared.module";
@@ -18,8 +20,14 @@ import { JsonInterceptor } from "./interceptors/json.interceptor";
 import { BusyService } from "./services/busy.service";
 import { MessageService } from "./services/message.service";
 import { UserService } from "./services/user.service";
+import { ServiceFactory } from "./service.factory";
 
 import { CurrentUserComponent } from "./current-user/current-user.component";
+
+@Injectable()
+export class AppODataConfig extends ODataConfiguration {
+  public baseUrl = environment.appBaseUrl;
+}
 
 @NgModule({
   declarations: [
@@ -49,6 +57,12 @@ import { CurrentUserComponent } from "./current-user/current-user.component";
       useClass: JsonInterceptor,
       multi: true
     },
+    {
+      provide: ODataConfiguration,
+      useClass: AppODataConfig
+    },
+    ODataServiceFactory,
+    ServiceFactory,
     BusyService,
     MessageService,
     UserService
