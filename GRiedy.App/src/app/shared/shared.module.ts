@@ -13,7 +13,9 @@ import {
   MatToolbarModule
 } from "@angular/material";
 
+import { FileUploadModule } from "primeng/fileupload";
 import { TableModule } from "primeng/table";
+import { GrowlModule } from "primeng/growl";
 
 @NgModule({
   imports: [
@@ -28,6 +30,8 @@ import { TableModule } from "primeng/table";
     MatToolbarModule,
     FormsModule,
     ReactiveFormsModule,
+    FileUploadModule,
+    GrowlModule,
     TableModule
   ],
   exports: [
@@ -41,6 +45,8 @@ import { TableModule } from "primeng/table";
     MatToolbarModule,
     FormsModule,
     ReactiveFormsModule,
+    FileUploadModule,
+    GrowlModule,
     TableModule
   ],
   declarations: []

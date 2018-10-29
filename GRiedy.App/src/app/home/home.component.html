@@ -1,3 +1,11 @@
 <div class="page-content">
-  <p>devon web client template</p>
+  <p>update compressor data (tsv)</p>
+  <p-fileUpload name="demo[]" url="./upload.php" (onUpload)="onUpload($event)" accept="text/*">
+    <ng-template pTemplate="content">
+      <ul *ngIf="uploadedFiles.length">
+        <li *ngFor="let file of uploadedFiles">{{file.name}} - {{file.size}} bytes</li>
+      </ul>
+    </ng-template>
+  </p-fileUpload>
 </div>
+<p-growl [(value)]="messageSvc.msgs" life="3000" [immutable]="false"></p-growl>
