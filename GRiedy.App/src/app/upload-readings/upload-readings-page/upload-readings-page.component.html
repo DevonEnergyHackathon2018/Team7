@@ -1,6 +1,6 @@
 <div class="page-content">
-  <p>update compressor data (tsv)</p>
-  <p-fileUpload name="demo[]" url="./upload.php" (onUpload)="onUpload($event)" accept="text/*">
+  <h2>upload compressor data (tsv)</h2>
+  <p-fileUpload url="http://localhost:5000/CompressorUpload" (onUpload)="onUpload($event)" accept="text/*">
     <ng-template pTemplate="content">
       <ul *ngIf="uploadedFiles.length">
         <li *ngFor="let file of uploadedFiles">{{file.name}} - {{file.size}} bytes</li>
