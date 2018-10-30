@@ -1,100 +1,43 @@
 ﻿using Griedy.API.Hubs;
-using Griedy.Lib.Business;
 using Griedy.Lib.DataContext;
-using Griedy.Lib.Models;
-using Microsoft.AspNet.OData;
 using Microsoft.AspNet.SignalR;
-using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Data.Entity;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Threading.Tasks;
-using System.Web;
 using System.Web.Http;
 
 namespace Griedy.API.Controllers
 {
-    [RoutePrefix("CompressorUpload")]
     public class CompressorUploadController : ApiController
     {
-
         private readonly GriedyDataContext _context;
 
-        public CompressorUploadController(GriedyDataContext context)
+        public CompressorUploadController()
         {
-            _context = context;
+            _context = new GriedyDataContext();
         }
-        
-        [HttpGet]
-        [Route("")]
-        public async Task<IHttpActionResult> Get()
-        {
-            var uploads = await _context
-                .Set<CompressorResult>()
-                .ToListAsync();
-            return Ok(uploads);
 
+        [HttpGet]
+        public IHttpActionResult Get()
+        {
+            return Ok(new CompressorResult[] {
+                new CompressorResult { CompressorId = "comp0", CompressorName = "name0", RiskRanking = 1 },
+                new CompressorResult { CompressorId = "comp1", CompressorName = "name1", RiskRanking = 1 },
+                new CompressorResult { CompressorId = "comp2", CompressorName = "name2", RiskRanking = 1 },
+                new CompressorResult { CompressorId = "comp3", CompressorName = "name3", RiskRanking = 2 },
+                new CompressorResult { CompressorId = "comp4", CompressorName = "name4", RiskRanking = 2 },
+                new CompressorResult { CompressorId = "comp5", CompressorName = "name5", RiskRanking = 2 },
+                new CompressorResult { CompressorId = "comp6", CompressorName = "name6", RiskRanking = 3 },
+                new CompressorResult { CompressorId = "comp7", CompressorName = "name7", RiskRanking = 3 },
+                new CompressorResult { CompressorId = "comp8", CompressorName = "name8", RiskRanking = 3 },
+                new CompressorResult { CompressorId = "comp9", CompressorName = "name9", RiskRanking = 3 }
+            });
         }
 
         [HttpPost]
-        [Route("upload")]
-        public async Task<IHttpActionResult> Upload()
+        public IHttpActionResult Upload()
         {
-            var context = (CompressorHub) GlobalHost.ConnectionManager.GetHubContext<CompressorHub>();
-            try
-            {
-                if(!Request.Content.IsMimeMultipartContent())
-                {
-                    return StatusCode(HttpStatusCode.UnsupportedMediaType);
-                }
-
-                var memoryStream = await Request.Content.ReadAsMultipartAsync(new MultipartMemoryStreamProvider());
-                foreach (var content in memoryStream.Contents)
-                {
-                    string fileName = content.Headers.ContentDisposition.FileName;
-                    string name = content.Headers.ContentDisposition.Name.Replace("\"", string.Empty);
-                    if (string.IsNullOrWhiteSpace(fileName))
-                    {
-                        continue;
-                    }
-
-                    string tsv = await content.ReadAsStringAsync();
-                    List<CompressorInputLine> lines = CompressorCsvReader.Create(tsv);
-                    context.Send();
-                }
-            }
-            catch(Exception e)
-            {
-                return InternalServerError(e);
-            }
-
-            return StatusCode(HttpStatusCode.OK);
+            var context = (CompressorHub)GlobalHost.ConnectionManager.GetHubContext<CompressorHub>();
+            context.Send();
+            return Ok();
         }
-
-        private void trunkAndReloadCompressors(List<CompressorInputLine> lines)
-        {
-            _context.Set<CompressorResult>().RemoveRange(_context.Set<CompressorResult>());
-
-            var newData = lines.Aggregate(new Dictionary<string, CompressorResult>(), (acc, line) =>
-            {
-                if (!acc.ContainsKey(line.FacilityId))
-                {
-                    acc[line.FacilityId] = new CompressorResult()
-                    {
-                        CompressorId = line.FacilityId,
-                        CompressorName = line.AssetName
-                    };
-                }
-
-                return acc;
-            }).Values.ToList();
-
-            _context.Set<CompressorResult>().AddRange(newData);
-            _context.SaveChanges();
-        }
-
     }
 }

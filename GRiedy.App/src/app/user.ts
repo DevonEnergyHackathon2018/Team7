@@ -2,11 +2,12 @@ import { JwtHelper } from "angular2-jwt";
 import { Adal5Service } from "adal-angular5";
 
 export class User {
-  constructor(private readonly authSvc: Adal5Service) {}
+  // constructor(private readonly authSvc: Adal5Service) {}
 
   public Username: string;
   public FullName: string;
 
+  /*
   public hasRole(resource: string, role: string): boolean {
     const token = this.authSvc.getCachedToken(resource);
     if (token === null) {
@@ -42,4 +43,5 @@ export class User {
   public isContributor(resource: string): boolean {
     return this.hasRole(resource, "contributor");
   }
+  */
 }

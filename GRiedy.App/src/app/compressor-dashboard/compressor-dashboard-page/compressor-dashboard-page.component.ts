@@ -2,7 +2,6 @@ import { Component, OnInit } from "@angular/core";
 import { MessageService } from "../../services/message.service";
 import { CompressorService } from "../../services/compressor.service";
 import { Compressor } from "../../data/compressor.data";
-import { HubConnectionBuilder } from "@aspnet/signalr";
 
 @Component({
   selector: "dvn-compressor-dashboard-page",
@@ -37,16 +36,9 @@ export class CompressorDashboardPageComponent implements OnInit {
   }
 
   public ngOnInit(): void {
-    const connection = new HubConnectionBuilder()
-      .withUrl("http://localhost:5000/signalr")
-      .build();
-
-    connection.on("send", data => {
-      console.log(data);
-      this.getCompressors();
-    });
-
-    connection.start();
+    /*
+    make signal r work
+    */
 
     this.getCompressors();
   }
