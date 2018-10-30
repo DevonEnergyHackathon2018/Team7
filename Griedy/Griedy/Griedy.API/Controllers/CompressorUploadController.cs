@@ -1,13 +1,12 @@
 ﻿using Griedy.API.Hubs;
 using Griedy.Lib.Business;
+using Griedy.Lib.DataAccess;
 using Griedy.Lib.DataContext;
 using Griedy.Lib.Models;
-using Microsoft.AspNet.OData;
 using Microsoft.AspNet.SignalR;
 using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -23,21 +22,31 @@ namespace Griedy.API.Controllers
 
         private readonly GriedyDataContext _context;
 
-        public CompressorUploadController(GriedyDataContext context)
+        public CompressorUploadController()
         {
-            _context = context;
+            _context = new GriedyDataContext();
         }
         
         [HttpGet]
         [Route("")]
-        public async Task<IHttpActionResult> Get()
+        public async Task<IHttpActionResult> Example()
         {
-            var uploads = await _context
-                .Set<CompressorResult>()
-                .ToListAsync();
-            return Ok(uploads);
-
+            string csv = File.ReadAllText("C:/Users/ryan/Downloads/input.csv");
+            var lines = CompressorCsvReader.Create(csv);
+            var result = await CallModel.MakeRequest(lines);
+            return Ok();
         }
+
+        //[HttpGet]
+        //[Route("")]
+        //public async Task<IHttpActionResult> Get()
+        //{
+        //    var uploads = await _context
+        //        .Set<CompressorResult>()
+        //        .ToListAsync();
+        //    return Ok(uploads);
+
+        //}
 
         [HttpPost]
         [Route("upload")]

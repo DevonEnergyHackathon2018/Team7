@@ -14,15 +14,21 @@ namespace Griedy.Lib.Business
         {
             string[] lines = tsv.Split('\n');
             var inputLines = new List<CompressorInputLine>();
-            foreach(string line in lines)
+            for(int i = 1; i < lines.Length; i++)
             {
-                string[] tokens = line.Split('\t');
+                string line = lines[i];
+                if(string.IsNullOrWhiteSpace(line))
+                {
+                    continue;
+                }
+
+                string[] tokens = line.Split(',');
                 inputLines.Add(new CompressorInputLine()
                 {
-                    Id = parseInt(tokens[0]).Value,
+                    Id = parseInt(tokens[0]),
                     AssetName = tokens[1],
-                    LocalTimestamp = DateTime.Parse(tokens[2]),
-                    UTCMilliseconds = parseInt(tokens[3]).Value,
+                    LocalTimestamp = parseDate(tokens[2]),
+                    UTCMilliseconds = parseInt(tokens[3]),
                     CompressorOilPressure = parseDouble(tokens[4]),
                     CompressorOilTemp = parseDouble(tokens[5]),
                     CompressorStages = parseInt(tokens[6]),
@@ -39,7 +45,7 @@ namespace Griedy.Lib.Business
                     GasFlowRate = parseDouble(tokens[17]),
                     GasFlowRate_RAW = parseDouble(tokens[18]),
                     Horsepower = parseDouble(tokens[19]),
-                    LastSuccessfulCommTime = DateTime.Parse(tokens[20]),
+                    LastSuccessfulCommTime = parseDate(tokens[20]),
                     MaxDischargePressure = parseDouble(tokens[21]),
                     MaxGasFlowrate = parseDouble(tokens[22]),
                     MaxRPMs = parseDouble(tokens[23]),
@@ -63,14 +69,33 @@ namespace Griedy.Lib.Business
             return inputLines;
         }
 
+        public static DateTime? parseDate(string dateString)
+        {
+            if(string.IsNullOrWhiteSpace(dateString))
+            {
+                return null;
+            }
+
+            DateTime value;
+            return DateTime.TryParse(dateString, out value) ? (DateTime?)value : null;
+        }
+
         public static int? parseInt(string token)
         {
+            if (string.IsNullOrWhiteSpace(token))
+            {
+                return null;
+            }
             int x;
             return int.TryParse(token, out x) ? (int?)x : null;
         }
 
         public static double? parseDouble(string token)
         {
+            if (string.IsNullOrWhiteSpace(token))
+            {
+                return null;
+            }
             double x;
             return double.TryParse(token, out x) ? (double?)x : null;
         }

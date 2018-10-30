@@ -87,6 +87,7 @@
     <Compile Include="Business\SplineInterpolator.cs" />
     <Compile Include="DataAccess\Abstract\IConfigDataAccess.cs" />
     <Compile Include="DataAccess\Abstract\IUserDataAccess.cs" />
+    <Compile Include="DataAccess\CallModel.cs" />
     <Compile Include="DataAccess\Concrete\ConfigDataAccess.cs" />
     <Compile Include="DataAccess\Concrete\UserDataAccess.cs" />
     <Compile Include="DataAccess\External\Abstract\IOnPremisesGatewayDataAccess.cs" />
