@@ -1,7 +1,9 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, Injectable } from "@angular/core";
 import { MessageService } from "../../services/message.service";
 import { CompressorService } from "../../services/compressor.service";
 import { Compressor } from "../../data/compressor.data";
+
+import { SignalR } from "ng2-signalr";
 
 @Component({
   selector: "dvn-compressor-dashboard-page",
@@ -13,6 +15,7 @@ export class CompressorDashboardPageComponent implements OnInit {
 
   constructor(
     private compressorSvc: CompressorService,
+    private signalR: SignalR,
     public messageSvc: MessageService
   ) {}
 
@@ -36,9 +39,16 @@ export class CompressorDashboardPageComponent implements OnInit {
   }
 
   public ngOnInit(): void {
-    /*
-    make signal r work
-    */
+    this.signalR.connect().then(c => {
+      c.listenFor("CompressorsAdded").subscribe(
+        x => {
+          this.getCompressors();
+        },
+        error => {
+          console.error(error);
+        }
+      );
+    });
 
     this.getCompressors();
   }

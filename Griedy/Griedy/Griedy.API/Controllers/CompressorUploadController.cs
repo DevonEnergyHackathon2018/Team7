@@ -1,7 +1,8 @@
 ﻿using Griedy.API.Hubs;
 using Griedy.Lib.DataContext;
 using Microsoft.AspNet.SignalR;
-using System.Collections.Generic;
+using System;
+using System.Linq;
 using System.Web.Http;
 
 namespace Griedy.API.Controllers
@@ -18,25 +19,19 @@ namespace Griedy.API.Controllers
         [HttpGet]
         public IHttpActionResult Get()
         {
-            return Ok(new CompressorResult[] {
-                new CompressorResult { CompressorId = "comp0", CompressorName = "name0", RiskRanking = 1 },
-                new CompressorResult { CompressorId = "comp1", CompressorName = "name1", RiskRanking = 1 },
-                new CompressorResult { CompressorId = "comp2", CompressorName = "name2", RiskRanking = 1 },
-                new CompressorResult { CompressorId = "comp3", CompressorName = "name3", RiskRanking = 2 },
-                new CompressorResult { CompressorId = "comp4", CompressorName = "name4", RiskRanking = 2 },
-                new CompressorResult { CompressorId = "comp5", CompressorName = "name5", RiskRanking = 2 },
-                new CompressorResult { CompressorId = "comp6", CompressorName = "name6", RiskRanking = 3 },
-                new CompressorResult { CompressorId = "comp7", CompressorName = "name7", RiskRanking = 3 },
-                new CompressorResult { CompressorId = "comp8", CompressorName = "name8", RiskRanking = 3 },
-                new CompressorResult { CompressorId = "comp9", CompressorName = "name9", RiskRanking = 3 }
-            });
+            return Ok(_context.CompressorResults);
         }
 
         [HttpPost]
         public IHttpActionResult Upload()
         {
-            var context = (CompressorHub)GlobalHost.ConnectionManager.GetHubContext<CompressorHub>();
-            context.Send();
+            var id = _context.CompressorResults.Select(x => x.Id).Max() + 1;
+            _context.CompressorResults.Add(new CompressorResult() { Id = id, CompressorId = $"ryry-serks-{id}", CompressorName = $"ryry serks {id}", RankedOn = DateTime.Now, RiskRanking = 1 });
+            _context.SaveChanges();
+
+            var signalrContext = GlobalHost.ConnectionManager.GetHubContext<CompressorHub>();
+            signalrContext.Clients.All.CompressorsAdded("I added some compressors.");
+
             return Ok();
         }
     }
