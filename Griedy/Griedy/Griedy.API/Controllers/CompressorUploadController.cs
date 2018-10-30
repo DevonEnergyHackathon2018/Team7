@@ -31,10 +31,15 @@ namespace Griedy.API.Controllers
         [Route("")]
         public async Task<IHttpActionResult> Example()
         {
-            string csv = File.ReadAllText("C:/Users/ryan/Downloads/input.csv");
-            var lines = CompressorCsvReader.Create(csv);
-            var result = await CallModel.MakeRequest(lines);
-            return Ok();
+            //string csv = File.ReadAllText("C:/temp/input.csv");
+            using (var instream = File.OpenRead("C:/temp/input.csv"))
+            {
+                var lines = CompressorCsvReader.Create(instream);
+                var result = await CallModel.MakeRequest(lines);
+
+                instream.Close();
+                return Ok();
+            }
         }
 
         //[HttpGet]
@@ -60,18 +65,18 @@ namespace Griedy.API.Controllers
                     return StatusCode(HttpStatusCode.UnsupportedMediaType);
                 }
 
+               
                 var memoryStream = await Request.Content.ReadAsMultipartAsync(new MultipartMemoryStreamProvider());
                 foreach (var content in memoryStream.Contents)
                 {
-                    string fileName = content.Headers.ContentDisposition.FileName;
-                    string name = content.Headers.ContentDisposition.Name.Replace("\"", string.Empty);
-                    if (string.IsNullOrWhiteSpace(fileName))
-                    {
-                        continue;
-                    }
+                    //string fileName = content.Headers.ContentDisposition.FileName;
+                    //string name = content.Headers.ContentDisposition.Name.Replace("\"", string.Empty);
+                    //if (string.IsNullOrWhiteSpace(fileName))
+                    //{
+                    //    continue;
+                    //}
 
-                    string tsv = await content.ReadAsStringAsync();
-                    List<CompressorInputLine> lines = CompressorCsvReader.Create(tsv);
+                    List<CompressorInputLine> lines = CompressorCsvReader.Create(await content.ReadAsStreamAsync());
                     context.Send();
                 }
             }
