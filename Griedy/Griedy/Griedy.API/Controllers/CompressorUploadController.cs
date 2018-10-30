@@ -30,7 +30,22 @@ namespace Griedy.API.Controllers
             _context.SaveChanges();
 
             var signalrContext = GlobalHost.ConnectionManager.GetHubContext<CompressorHub>();
-            signalrContext.Clients.All.CompressorsAdded("I added some compressors.");
+            signalrContext.Clients.All.CompressorsChanged("I added some compressors.");
+
+            return Ok();
+        }
+
+        [HttpDelete]
+        public IHttpActionResult Dismiss(int key)
+        {
+            var compressor = _context.CompressorResults.Find(key);
+            if (compressor == null) { return NotFound(); }
+
+            _context.CompressorResults.Remove(compressor);
+            _context.SaveChanges();
+
+            var signalrContext = GlobalHost.ConnectionManager.GetHubContext<CompressorHub>();
+            signalrContext.Clients.All.CompressorsChanged("I dismissed a compressor.");
 
             return Ok();
         }

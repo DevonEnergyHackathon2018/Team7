@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 import { Compressor } from "../../data/compressor.data";
 
 @Component({
@@ -10,7 +10,14 @@ export class CompressorCardComponent implements OnInit {
   @Input()
   public compressor: Compressor;
 
+  @Output()
+  public dismiss = new EventEmitter<number>();
+
   constructor() {}
 
   ngOnInit() {}
+
+  public onDismissButtonClicked(key: number): void {
+    this.dismiss.emit(key);
+  }
 }

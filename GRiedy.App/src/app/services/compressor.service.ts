@@ -12,4 +12,10 @@ export class CompressorService {
       "http://localhost:5000/api/CompressorUpload"
     );
   }
+
+  public Dismiss(key: number): Observable<any> {
+    return this.httpClient.delete(
+      `http://localhost:5000/api/CompressorUpload?key=${key}`
+    );
+  }
 }

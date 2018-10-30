@@ -1,9 +1,9 @@
-import { Component, OnInit, Injectable } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { MessageService } from "../../services/message.service";
 import { CompressorService } from "../../services/compressor.service";
 import { Compressor } from "../../data/compressor.data";
 
-import { SignalR } from "ng2-signalr";
+import { SignalR, ISignalRConnection } from "ng2-signalr";
 
 @Component({
   selector: "dvn-compressor-dashboard-page",
@@ -11,13 +11,16 @@ import { SignalR } from "ng2-signalr";
   styleUrls: ["./compressor-dashboard-page.component.scss"]
 })
 export class CompressorDashboardPageComponent implements OnInit {
+  private connection: ISignalRConnection;
+
   public compressors: Array<Compressor>;
 
   constructor(
     private compressorSvc: CompressorService,
     private signalR: SignalR,
     public messageSvc: MessageService
-  ) {}
+  ) {
+  }
 
   private getCompressors(): void {
     this.compressorSvc.GetAll().subscribe(
@@ -40,7 +43,9 @@ export class CompressorDashboardPageComponent implements OnInit {
 
   public ngOnInit(): void {
     this.signalR.connect().then(c => {
-      c.listenFor("CompressorsAdded").subscribe(
+      this.connection = c;
+
+      c.listenFor("CompressorsChanged").subscribe(
         x => {
           this.getCompressors();
         },
@@ -51,5 +56,16 @@ export class CompressorDashboardPageComponent implements OnInit {
     });
 
     this.getCompressors();
+  }
+
+  public onDismiss(key: number): void {
+    this.compressorSvc.Dismiss(key).subscribe(
+      () => {
+        this.messageSvc.AddSuccess("griedy", "The compressor was dismissed!");
+      },
+      error => {
+        this.messageSvc.AddError("griedy", error);
+      }
+    );
   }
 }
