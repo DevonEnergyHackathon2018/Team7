@@ -59,6 +59,7 @@
     <Reference Include="Microsoft.IdentityModel.Clients.ActiveDirectory.Platform, Version=3.19.8.16603, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.IdentityModel.Clients.ActiveDirectory.3.19.8\lib\net45\Microsoft.IdentityModel.Clients.ActiveDirectory.Platform.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -81,7 +82,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Business\Abstract\IConfigBusiness.cs" />
+    <Compile Include="Business\CompressorCsvReader.cs" />
     <Compile Include="Business\Concrete\ConfigBusiness.cs" />
+    <Compile Include="Business\SplineInterpolator.cs" />
     <Compile Include="DataAccess\Abstract\IConfigDataAccess.cs" />
     <Compile Include="DataAccess\Abstract\IUserDataAccess.cs" />
     <Compile Include="DataAccess\Concrete\ConfigDataAccess.cs" />
@@ -104,6 +107,7 @@
     <Compile Include="Jobs\Severity.cs" />
     <Compile Include="LibModule.cs" />
     <Compile Include="LogInterceptor.cs" />
+    <Compile Include="Models\CompressorInputLine.cs" />
     <Compile Include="Models\CompressorUpload.cs" />
     <Compile Include="Models\Config.cs" />
     <Compile Include="Models\ODataArrayContext.cs" />

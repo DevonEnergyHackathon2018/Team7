@@ -65,6 +65,7 @@
     <Build Include="Schemas\Jobs.sql" />
     <Build Include="Schemas\OTP.sql" />
     <Build Include="Schemas\Ref.sql" />
+    <Build Include="Schemas\CompressorUploads.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Griedy.DB.publish.xml" />

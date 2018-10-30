@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace Griedy.Lib.Models
 {
-    public class CompressorUpload
+    public class CompressorResult
     {
 
         public string CompressorId { get; set; }
         public string CompressorName { get; set; }
-        public DateTime RankedOn { get; set; }
+        public DateTime PredictedFailure { get; set; }
         public int RiskRanking { get; set; }
 
     }

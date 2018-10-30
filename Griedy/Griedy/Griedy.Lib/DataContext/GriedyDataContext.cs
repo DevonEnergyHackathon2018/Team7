@@ -14,7 +14,7 @@ namespace Griedy.Lib.DataContext
             Database.SetInitializer<GriedyDataContext>(null);
         }
 
-        public virtual DbSet<CompressorUpload> CompressorUploads { get; set; }
+        public virtual DbSet<CompressorResult> CompressorUploads { get; set; }
         public virtual DbSet<JobDetail> JobDetails { get; set; }
         public virtual DbSet<JobInstance> JobInstances { get; set; }
         public virtual DbSet<JobStatus> JobStatus { get; set; }

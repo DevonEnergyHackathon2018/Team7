@@ -14,7 +14,10 @@ using Microsoft.Owin.Security.OAuth;
 using Owin;
 using System.Reflection;
 using System.Web.Http;
+using Microsoft.Owin;
+using Microsoft.AspNet.SignalR;
 
+[assembly: OwinStartup(typeof(Griedy.API.Startup))]
 namespace Griedy.API
 {
     public class Startup
@@ -38,7 +41,7 @@ namespace Griedy.API
                 });
 
             /* Make all controllers require an OAuth token. */
-            httpConfig.Filters.Add(new AuthorizeAttribute());
+            httpConfig.Filters.Add(new System.Web.Http.AuthorizeAttribute());
         }
 
         private void ConfigureCors(IAppBuilder appBuilder)
@@ -109,6 +112,8 @@ namespace Griedy.API
             ConfigureCors(appBuilder);
             ConfigureDI(appBuilder, httpConfig);
             ConfigureRouting(appBuilder, httpConfig);
+
+            appBuilder.MapSignalR("/signalr", new HubConfiguration());
         }
     }
 }
