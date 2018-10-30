@@ -16,7 +16,7 @@ export class CompressorDashboardPageComponent implements OnInit {
     public messageSvc: MessageService
   ) {}
 
-  ngOnInit() {
+  private getCompressors(): void {
     this.compressorSvc.GetAll().subscribe(
       compressors => {
         this.compressors = compressors;
@@ -33,5 +33,9 @@ export class CompressorDashboardPageComponent implements OnInit {
         this.messageSvc.AddError("griedy", error);
       }
     );
+  }
+
+  ngOnInit() {
+    this.getCompressors();
   }
 }
