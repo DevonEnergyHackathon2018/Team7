@@ -23,24 +23,24 @@ namespace Griedy.API
     {
         private void ConfigureAuth(IAppBuilder appBuilder, HttpConfiguration httpConfig, Config appConfig)
         {
-            appBuilder.UseWindowsAzureActiveDirectoryBearerAuthentication(
-                new WindowsAzureActiveDirectoryBearerAuthenticationOptions
-                {
-                    Tenant = appConfig.Tenant,
-                    TokenValidationParameters = new TokenValidationParameters
-                    {
-                        /*
-                         * Allow both Client ID and App ID URI Audiences.
-                         * Clients will send the Client ID as the Audience.  Resources running in
-                         * Azure will send the App ID URI as the Audience.
-                         */
-                        ValidAudiences = new string[] { appConfig.Audience, appConfig.ClientId }
-                    },
-                    Provider = new OAuthBearerAuthenticationProvider()
-                });
+            //appBuilder.UseWindowsAzureActiveDirectoryBearerAuthentication(
+            //    new WindowsAzureActiveDirectoryBearerAuthenticationOptions
+            //    {
+            //        Tenant = appConfig.Tenant,
+            //        TokenValidationParameters = new TokenValidationParameters
+            //        {
+            //            /*
+            //             * Allow both Client ID and App ID URI Audiences.
+            //             * Clients will send the Client ID as the Audience.  Resources running in
+            //             * Azure will send the App ID URI as the Audience.
+            //             */
+            //            ValidAudiences = new string[] { appConfig.Audience, appConfig.ClientId }
+            //        },
+            //        Provider = new OAuthBearerAuthenticationProvider()
+            //    });
 
             /* Make all controllers require an OAuth token. */
-            httpConfig.Filters.Add(new System.Web.Http.AuthorizeAttribute());
+            //httpConfig.Filters.Add(new System.Web.Http.AuthorizeAttribute());
         }
 
         private void ConfigureCors(IAppBuilder appBuilder)
@@ -92,10 +92,6 @@ namespace Griedy.API
             /* builder.EntitySet<Lib.DataContext.Entity>("Entity"); */
 
             /* OData Routes */
-            httpConfig.MapODataServiceRoute(
-                routeName: "ODataRoute",
-                routePrefix: null,
-                model: builder.GetEdmModel());
 
             appBuilder.UseWebApi(httpConfig);
         }

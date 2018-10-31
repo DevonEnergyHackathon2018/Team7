@@ -38,9 +38,9 @@ export function createConfig(): SignalRConfiguration {
 @NgModule({
   declarations: [AppComponent, NotFoundComponent, CurrentUserComponent],
   imports: [
-    AppRoutingModule,
     BrowserModule,
     BrowserAnimationsModule,
+    AppRoutingModule,
     CoreModule,
     HttpClientModule,
     SharedModule,

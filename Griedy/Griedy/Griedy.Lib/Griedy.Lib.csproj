@@ -87,6 +87,7 @@
     <Compile Include="Business\SplineInterpolator.cs" />
     <Compile Include="DataAccess\Abstract\IConfigDataAccess.cs" />
     <Compile Include="DataAccess\Abstract\IUserDataAccess.cs" />
+    <Compile Include="DataAccess\CallModel.cs" />
     <Compile Include="DataAccess\Concrete\ConfigDataAccess.cs" />
     <Compile Include="DataAccess\Concrete\UserDataAccess.cs" />
     <Compile Include="DataAccess\External\Abstract\IOnPremisesGatewayDataAccess.cs" />
@@ -99,6 +100,7 @@
     <Compile Include="DataContext\JobStatus.cs" />
     <Compile Include="DataContext\JobType.cs" />
     <Compile Include="DataContext\GriedyDataContext.cs" />
+    <Compile Include="Enums\RiskType.cs" />
     <Compile Include="Exceptions\OnPremisesGatewayException.cs" />
     <Compile Include="Exceptions\SecurityException.cs" />
     <Compile Include="Exceptions\ValidationException.cs" />
@@ -108,6 +110,7 @@
     <Compile Include="Jobs\Severity.cs" />
     <Compile Include="LibModule.cs" />
     <Compile Include="LogInterceptor.cs" />
+    <Compile Include="Models\CompressorAggregatedRisk.cs" />
     <Compile Include="Models\CompressorInputLine.cs" />
     <Compile Include="Models\Config.cs" />
     <Compile Include="Models\ODataArrayContext.cs" />
@@ -121,7 +124,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Enums\" />
     <Folder Include="Jobs\Abstract\" />
     <Folder Include="Jobs\Concrete\" />
     <Folder Include="Services\Abstract\" />

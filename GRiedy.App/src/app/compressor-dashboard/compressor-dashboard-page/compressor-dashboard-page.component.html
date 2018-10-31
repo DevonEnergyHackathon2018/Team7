@@ -1,5 +1,8 @@
 <div class="page-content">
   <h2>compressors</h2>
+  <button (click)="openDialog();" style="position: fixed; right: 25px; bottom: 25px;" mat-fab color="primary">
+    <i class="fa fa-upload"></i>
+  </button>
   <dvn-compressor-list [compressors]="compressors" (dismiss)="onDismiss($event)"></dvn-compressor-list>
 </div>
 <p-growl [(value)]="messageSvc.msgs" life="1000" [immutable]="false"></p-growl>
