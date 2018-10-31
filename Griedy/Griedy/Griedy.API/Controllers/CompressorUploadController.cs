@@ -8,25 +8,21 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Http;
 
 namespace Griedy.API.Controllers
 {
-    [RoutePrefix("CompressorUpload")]
     public class CompressorUploadController : ApiController
     {
-
-        private readonly GriedyDataContext _context;
+        //private readonly GriedyDataContext _context;
 
         public CompressorUploadController()
         {
-            _context = new GriedyDataContext();
+            //_context = new GriedyDataContext();
         }
-        
+
         [HttpGet]
         [Route("")]
         public async Task<IHttpActionResult> Example()
@@ -54,61 +50,42 @@ namespace Griedy.API.Controllers
         //}
 
         [HttpPost]
-        [Route("upload")]
         public async Task<IHttpActionResult> Upload()
         {
-            var context = (CompressorHub) GlobalHost.ConnectionManager.GetHubContext<CompressorHub>();
-            try
+            //var id = _context.CompressorResults.Select(x => x.Id).Max() + 1;
+            //_context.CompressorResults.Add(new CompressorResult() { Id = id, CompressorId = $"ryry-serks-{id}", CompressorName = $"ryry serks {id}", RankedOn = DateTime.Now, RiskRanking = 1 });
+            //_context.SaveChanges();
+            var signalrContext = GlobalHost.ConnectionManager.GetHubContext<CompressorHub>();
+            var memoryStream = await Request.Content.ReadAsMultipartAsync(new MultipartMemoryStreamProvider());
+            foreach (var content in memoryStream.Contents)
             {
-                if(!Request.Content.IsMimeMultipartContent())
-                {
-                    return StatusCode(HttpStatusCode.UnsupportedMediaType);
-                }
-
-               
-                var memoryStream = await Request.Content.ReadAsMultipartAsync(new MultipartMemoryStreamProvider());
-                foreach (var content in memoryStream.Contents)
-                {
-                    //string fileName = content.Headers.ContentDisposition.FileName;
-                    //string name = content.Headers.ContentDisposition.Name.Replace("\"", string.Empty);
-                    //if (string.IsNullOrWhiteSpace(fileName))
-                    //{
-                    //    continue;
-                    //}
-
-                    List<CompressorInputLine> lines = CompressorCsvReader.Create(await content.ReadAsStreamAsync());
-                    context.Send();
-                }
-            }
-            catch(Exception e)
-            {
-                return InternalServerError(e);
+                //string fileName = content.Headers.ContentDisposition.FileName;
+                //string name = content.Headers.ContentDisposition.Name.Replace("\"", string.Empty);
+                //if (string.IsNullOrWhiteSpace(fileName))
+                //{
+                //    continue;
+                //}
+                List<CompressorInputLine> lines = CompressorCsvReader.Create(await content.ReadAsStreamAsync());
+                var result = await CallModel.CalculateFullSet(lines);
+                signalrContext.Clients.All.CompressorsChanged(result);
             }
 
-            return StatusCode(HttpStatusCode.OK);
+            return Ok();
         }
 
-        private void trunkAndReloadCompressors(List<CompressorInputLine> lines)
+        [HttpDelete]
+        public IHttpActionResult Dismiss(string key)    
         {
-            _context.Set<CompressorResult>().RemoveRange(_context.Set<CompressorResult>());
+            //var compressor = _context.CompressorResults.Find(key);
+            //if (compressor == null) { return NotFound(); }
 
-            var newData = lines.Aggregate(new Dictionary<string, CompressorResult>(), (acc, line) =>
-            {
-                if (!acc.ContainsKey(line.FacilityId))
-                {
-                    acc[line.FacilityId] = new CompressorResult()
-                    {
-                        CompressorId = line.FacilityId,
-                        CompressorName = line.AssetName
-                    };
-                }
+            //_context.CompressorResults.Remove(compressor);
+            //_context.SaveChanges();
 
-                return acc;
-            }).Values.ToList();
+            var signalrContext = GlobalHost.ConnectionManager.GetHubContext<CompressorHub>();
+            signalrContext.Clients.All.CompressorDismissed(key);
 
-            _context.Set<CompressorResult>().AddRange(newData);
-            _context.SaveChanges();
+            return Ok();
         }
-
     }
 }

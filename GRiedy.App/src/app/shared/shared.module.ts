@@ -11,12 +11,15 @@ import {
   MatListModule,
   MatSelectModule,
   MatSidenavModule,
-  MatToolbarModule
+  MatToolbarModule,
+  MatIconModule,
+  MatDialogModule
 } from "@angular/material";
 
 import { FileUploadModule } from "primeng/fileupload";
 import { TableModule } from "primeng/table";
 import { GrowlModule } from "primeng/growl";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 @NgModule({
   imports: [
@@ -30,6 +33,8 @@ import { GrowlModule } from "primeng/growl";
     MatSelectModule,
     MatSidenavModule,
     MatToolbarModule,
+    MatIconModule,
+    MatDialogModule,
     FormsModule,
     ReactiveFormsModule,
     FileUploadModule,
@@ -46,6 +51,8 @@ import { GrowlModule } from "primeng/growl";
     MatSelectModule,
     MatSidenavModule,
     MatToolbarModule,
+    MatIconModule,
+    MatDialogModule,
     FormsModule,
     ReactiveFormsModule,
     FileUploadModule,

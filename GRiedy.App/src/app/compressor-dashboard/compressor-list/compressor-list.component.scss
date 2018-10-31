@@ -3,3 +3,40 @@
   margin: 5px;
   padding: 5px;
 }
+
+@keyframes MyAnimation {
+  0% {
+    padding-left: 100px;
+  }
+  100% {
+    padding-left: 0px;
+  } 
+}
+
+@keyframes MyAnimation2 {
+  100% {
+    padding-left: 100px;
+    opacity: 0;
+  }
+  0% {
+    padding-left: 0px;
+    opacity: 0;
+  } 
+}
+
+.fancy-fade {
+  animation: MyAnimation 1s;
+}
+
+.fancy-fade-out {
+  animation: MyAnimation2 1s;
+  transition: visibility 0s, opacity 1s linear;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.fade-out {
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s, opacity 1s linear;
+}

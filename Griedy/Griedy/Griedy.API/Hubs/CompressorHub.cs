@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Microsoft.AspNet.SignalR;
+﻿using Microsoft.AspNet.SignalR;
+using System.Threading.Tasks;
 
 namespace Griedy.API.Hubs
 {
     public class CompressorHub : Hub
     {
-        public void Send()
+        public void SendMessage(string msg)
         {
-            Clients.All.send();
+            Clients.All.Message(msg);
         }
     }
 }

@@ -2,7 +2,10 @@ import { Component, OnInit } from "@angular/core";
 import { MessageService } from "../../services/message.service";
 import { CompressorService } from "../../services/compressor.service";
 import { Compressor } from "../../data/compressor.data";
-import { HubConnectionBuilder } from "@aspnet/signalr";
+
+import { SignalR, ISignalRConnection } from "ng2-signalr";
+import { MatDialog } from "@angular/material";
+import { UploadReadingsPageComponent } from "../../upload-readings/upload-readings-page/upload-readings-page.component";
 
 @Component({
   selector: "dvn-compressor-dashboard-page",
@@ -10,44 +13,78 @@ import { HubConnectionBuilder } from "@aspnet/signalr";
   styleUrls: ["./compressor-dashboard-page.component.scss"]
 })
 export class CompressorDashboardPageComponent implements OnInit {
+  private connection: ISignalRConnection;
+
   public compressors: Array<Compressor>;
 
   constructor(
     private compressorSvc: CompressorService,
-    public messageSvc: MessageService
-  ) {}
-
-  private getCompressors(): void {
-    this.compressorSvc.GetAll().subscribe(
-      compressors => {
-        this.compressors = compressors;
-        if (this.compressors) {
-          this.messageSvc.AddInfo(
-            "greidy",
-            `${compressors.length} compressors were found.`
-          );
-        } else {
-          this.messageSvc.AddInfo("greidy", "no compressors were found.");
-        }
-      },
-      error => {
-        this.messageSvc.AddError("greidy", error);
-      }
-    );
+    private signalR: SignalR,
+    public messageSvc: MessageService,
+    public dialog: MatDialog
+  ) {
+    this.compressors = [];
   }
 
   public ngOnInit(): void {
-    const connection = new HubConnectionBuilder()
-      .withUrl("http://localhost:5000/signalr")
-      .build();
+    this.signalR.connect().then(c => {
+      this.connection = c;
 
-    connection.on("send", data => {
-      console.log(data);
-      this.getCompressors();
+      c.listenFor("CompressorsChanged").subscribe(
+        x => {
+          const lookup:any = {};
+          for(let i = 0; i < this.compressors.length; i++) {
+            lookup[this.compressors[i].CompressorName] = i;
+          }
+          const result = x as Array<Compressor>;
+          result.forEach(c => {
+            if(lookup[c.CompressorName] === 0 || lookup[c.CompressorName] > 0) {
+              console.log('c', c);
+              console.log('lookup[c.CompressorName]', Object.assign({}, lookup[c.CompressorName]));
+              this.compressors[lookup[c.CompressorName]] = c;
+              return;
+            }
+            this.compressors.push(c);
+          });
+          console.log('this.compressors', this.compressors);
+        },
+        error => {
+          console.error(error);
+        }
+      );
+      c.listenFor("CompressorDismissed").subscribe(
+        x => {
+          //const index = this.compressors.findIndex(c => c.CompressorName == x);
+          //this.compressors.splice(index, 1);
+
+          const c = this.compressors.find(c => c.CompressorName == x);
+          c.Removed = true;
+          
+        }, error => {
+          console.error(error);
+        }
+      )
+    });
+  }
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(UploadReadingsPageComponent, {
+      width: '500px',
     });
 
-    connection.start();
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
 
-    this.getCompressors();
+  public onDismiss(key: number): void {
+    this.compressorSvc.Dismiss(key).subscribe(
+      () => {
+        this.messageSvc.AddSuccess("griedy", "The compressor was dismissed!");
+      },
+      error => {
+        this.messageSvc.AddError("griedy", error);
+      }
+    );
   }
 }

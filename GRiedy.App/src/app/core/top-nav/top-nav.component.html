@@ -5,7 +5,6 @@
     </header>
     <span style="flex: 1 1 auto;"></span>
     <a mat-button [routerLink]="['']"><span class="fa fa-home"></span> home</a>
-    <a *ngIf="user" mat-button [routerLink]="['/upload-readings']" routerLinkActive="router-link-active"><span class="fa fa-upload"></span> upload readings</a>
     <a *ngIf="user" mat-button [routerLink]="['/current-user']" routerLinkActive="router-link-active"><span class="fa fa-user"></span> {{ user.FullName }}</a>
   </mat-toolbar-row>
 </mat-toolbar>

@@ -1,6 +1,6 @@
 <div class="page-content">
   <h2>upload compressor data (tsv)</h2>
-  <p-fileUpload url="http://localhost:5000/CompressorUpload" (onUpload)="onUpload($event)" accept="text/*">
+  <p-fileUpload url="http://localhost:5000/api/CompressorUpload" (onUpload)="onUpload($event)" accept="text/*">
     <ng-template pTemplate="content">
       <ul *ngIf="uploadedFiles.length">
         <li *ngFor="let file of uploadedFiles">{{file.name}} - {{file.size}} bytes</li>
@@ -8,4 +8,4 @@
     </ng-template>
   </p-fileUpload>
 </div>
-<p-growl [(value)]="messageSvc.msgs" life="3000" [immutable]="false"></p-growl>
+<p-growl [(value)]="messageSvc.msgs" life="1000" [immutable]="false"></p-growl>

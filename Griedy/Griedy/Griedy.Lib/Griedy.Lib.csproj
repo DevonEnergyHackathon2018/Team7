@@ -93,6 +93,7 @@
     <Compile Include="DataAccess\External\Abstract\IOnPremisesGatewayDataAccess.cs" />
     <Compile Include="DataAccess\External\Concrete\AkanaDataAccess.cs" />
     <Compile Include="DataContext\Abstract\IDataContext.cs" />
+    <Compile Include="DataContext\CompressorResult.cs" />
     <Compile Include="DataContext\Concrete\GriedyDataContext.Devon.cs" />
     <Compile Include="DataContext\JobDetail.cs" />
     <Compile Include="DataContext\JobInstance.cs" />
@@ -111,7 +112,6 @@
     <Compile Include="LogInterceptor.cs" />
     <Compile Include="Models\CompressorAggregatedRisk.cs" />
     <Compile Include="Models\CompressorInputLine.cs" />
-    <Compile Include="Models\CompressorUpload.cs" />
     <Compile Include="Models\Config.cs" />
     <Compile Include="Models\ODataArrayContext.cs" />
     <Compile Include="Models\User.cs" />
