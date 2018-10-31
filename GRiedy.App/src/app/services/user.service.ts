@@ -9,15 +9,18 @@ export class UserService {
   constructor(private readonly authSvc: Adal5Service) {}
 
   public GetUser(): User {
-    if (!UserService.user) {
-      UserService.user = new User(this.authSvc);
-      UserService.user.Username = this.authSvc.userInfo.username;
-      if (this.authSvc.userInfo.profile) {
-        UserService.user.FullName = `${
-          this.authSvc.userInfo.profile.given_name
-        } ${this.authSvc.userInfo.profile.family_name}`;
-      }
-    }
+    UserService.user = new User(this.authSvc);
+    UserService.user.FullName = "Production Analyst";
+    UserService.user.Username = "DVN-PA";
+    // if (!UserService.user) {
+    //   UserService.user = new User(this.authSvc);
+    //   UserService.user.Username = this.authSvc.userInfo.username;
+    //   if (this.authSvc.userInfo.profile) {
+    //     UserService.user.FullName = `${
+    //       this.authSvc.userInfo.profile.given_name
+    //     } ${this.authSvc.userInfo.profile.family_name}`;
+    //   }
+    // }
 
     return UserService.user;
   }

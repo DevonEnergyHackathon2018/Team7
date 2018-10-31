@@ -17,11 +17,12 @@ export class AppComponent implements OnInit {
     private readonly userSvc: UserService,
     private readonly busySvc: BusyService
   ) {
-    this.authSvc.init(environment.adalConfig);
+    //this.authSvc.init(environment.adalConfig);
   }
 
   public get isAuthenticated(): boolean {
-    return this.authSvc.userInfo.authenticated;
+    return true;
+    //return this.authSvc.userInfo.authenticated;
   }
 
   public get isBusy(): boolean {
@@ -29,12 +30,12 @@ export class AppComponent implements OnInit {
   }
 
   public ngOnInit(): void {
-    this.authSvc.handleWindowCallback();
+    //this.authSvc.handleWindowCallback();
 
-    if (!this.authSvc.userInfo.authenticated) {
-      this.authSvc.login();
-      return;
-    }
+    // if (!this.authSvc.userInfo.authenticated) {
+    //   this.authSvc.login();
+    //   return;
+    // }
 
     const user = this.userSvc.GetUser();
     console.log(`user: ${user.FullName}`);
