@@ -1,5 +1,6 @@
 export interface Compressor {
+  Id: number;
   CompressorId: string;
   CompressorName: string;
-  ScoredProbability: number;
+  RiskRanking: number;
 }

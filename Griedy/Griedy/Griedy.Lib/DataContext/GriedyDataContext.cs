@@ -4,7 +4,6 @@ namespace Griedy.Lib.DataContext
     using System.Data.Entity;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
-    using Griedy.Lib.Models;
 
     public partial class GriedyDataContext : DbContext
     {
@@ -14,7 +13,7 @@ namespace Griedy.Lib.DataContext
             Database.SetInitializer<GriedyDataContext>(null);
         }
 
-        public virtual DbSet<CompressorResult> CompressorUploads { get; set; }
+        public virtual DbSet<CompressorResult> CompressorResults { get; set; }
         public virtual DbSet<JobDetail> JobDetails { get; set; }
         public virtual DbSet<JobInstance> JobInstances { get; set; }
         public virtual DbSet<JobStatus> JobStatus { get; set; }

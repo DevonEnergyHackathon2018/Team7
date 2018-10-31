@@ -1,21 +1,20 @@
-﻿using Griedy.Lib;
+﻿using Autofac;
+using Autofac.Integration.WebApi;
+using Griedy.Lib;
 using Griedy.Lib.DataAccess;
 using Griedy.Lib.Models;
-
-using Autofac;
-using Autofac.Integration.WebApi;
 using Microsoft.AspNet.OData.Builder;
 using Microsoft.AspNet.OData.Extensions;
 using Microsoft.AspNet.OData.Query;
+using Microsoft.AspNet.SignalR;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.Owin;
 using Microsoft.Owin.Cors;
 using Microsoft.Owin.Security.ActiveDirectory;
 using Microsoft.Owin.Security.OAuth;
 using Owin;
 using System.Reflection;
 using System.Web.Http;
-using Microsoft.Owin;
-using Microsoft.AspNet.SignalR;
 
 [assembly: OwinStartup(typeof(Griedy.API.Startup))]
 namespace Griedy.API
@@ -108,7 +107,7 @@ namespace Griedy.API
             var configData = new ConfigDataAccess();
             var appConfig = configData.GetConfig();
 
-            ConfigureAuth(appBuilder, httpConfig, appConfig);
+            // ConfigureAuth(appBuilder, httpConfig, appConfig);
             ConfigureCors(appBuilder);
             ConfigureDI(appBuilder, httpConfig);
             ConfigureRouting(appBuilder, httpConfig);

@@ -1,11 +1,8 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { NgModule, Injectable } from "@angular/core";
-import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
-import { Adal5Service } from "adal-angular5";
-import { ODataConfiguration, ODataServiceFactory } from "angular-odata-es5";
+import { NgModule } from "@angular/core";
+import { HttpClientModule } from "@angular/common/http";
 
-import { environment } from "../environments/environment";
 import { AppRoutingModule } from "./app-routing.module";
 import { CoreModule } from "./core/core.module";
 import { SharedModule } from "./shared/shared.module";
@@ -13,60 +10,43 @@ import { SharedModule } from "./shared/shared.module";
 import { AppComponent } from "./app.component";
 import { NotFoundComponent } from "./not-found/not-found.component";
 
-import { AuthInterceptor } from "./interceptors/auth.interceptor";
-import { JsonInterceptor } from "./interceptors/json.interceptor";
-
 import { BusyService } from "./services/busy.service";
 import { MessageService } from "./services/message.service";
 import { UserService } from "./services/user.service";
-import { ServiceFactory } from "./service.factory";
 
 import { CurrentUserComponent } from "./current-user/current-user.component";
 import { CompressorService } from "./services/compressor.service";
 
-@Injectable()
-export class AppODataConfig extends ODataConfiguration {
-  public baseUrl = environment.appBaseUrl;
+import { SignalRModule } from "ng2-signalr";
+import { SignalRConfiguration } from "ng2-signalr";
+
+// >= v2.0.0
+export function createConfig(): SignalRConfiguration {
+  const c = new SignalRConfiguration();
+  c.hubName = "CompressorHub";
+  c.qs = { user: "cooluser" };
+  c.url = "http://localhost:5000/signalr";
+  c.logging = true;
+
+  // >= v5.0.0
+  c.executeEventsInZone = true; // optional, default is true
+  c.executeErrorsInZone = false; // optional, default is false
+  c.executeStatusChangeInZone = true; // optional, default is true
+  return c;
 }
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    NotFoundComponent,
-    CurrentUserComponent
-  ],
+  declarations: [AppComponent, NotFoundComponent, CurrentUserComponent],
   imports: [
-    SharedModule,
     AppRoutingModule,
     BrowserModule,
     BrowserAnimationsModule,
     CoreModule,
-    HttpClientModule
+    HttpClientModule,
+    SharedModule,
+    SignalRModule.forRoot(createConfig)
   ],
-  providers: [
-    Adal5Service,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: AuthInterceptor,
-      deps: [Adal5Service],
-      multi: true
-    },
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: JsonInterceptor,
-      multi: true
-    },
-    {
-      provide: ODataConfiguration,
-      useClass: AppODataConfig
-    },
-    ODataServiceFactory,
-    ServiceFactory,
-    BusyService,
-    MessageService,
-    UserService,
-    CompressorService
-  ],
+  providers: [BusyService, MessageService, UserService, CompressorService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

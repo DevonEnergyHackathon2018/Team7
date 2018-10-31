@@ -65,10 +65,7 @@
     <Build Include="Schemas\Jobs.sql" />
     <Build Include="Schemas\OTP.sql" />
     <Build Include="Schemas\Ref.sql" />
-    <Build Include="Schemas\CompressorUploads.sql" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Griedy.DB.publish.xml" />
+    <Build Include="OTP\CompressorResult.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Scripts\Setup.sql" />
@@ -80,5 +77,8 @@
     <Folder Include="Scripts" />
     <Folder Include="Jobs\" />
     <Folder Include="Schemas\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Griedy.DB.publish.xml" />
   </ItemGroup>
 </Project>

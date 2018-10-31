@@ -2,7 +2,8 @@ import { Component, OnInit } from "@angular/core";
 import { MessageService } from "../../services/message.service";
 import { CompressorService } from "../../services/compressor.service";
 import { Compressor } from "../../data/compressor.data";
-import { HubConnectionBuilder } from "@aspnet/signalr";
+
+import { SignalR, ISignalRConnection } from "ng2-signalr";
 
 @Component({
   selector: "dvn-compressor-dashboard-page",
@@ -10,12 +11,16 @@ import { HubConnectionBuilder } from "@aspnet/signalr";
   styleUrls: ["./compressor-dashboard-page.component.scss"]
 })
 export class CompressorDashboardPageComponent implements OnInit {
+  private connection: ISignalRConnection;
+
   public compressors: Array<Compressor>;
 
   constructor(
     private compressorSvc: CompressorService,
+    private signalR: SignalR,
     public messageSvc: MessageService
-  ) {}
+  ) {
+  }
 
   private getCompressors(): void {
     this.compressorSvc.GetAll().subscribe(
@@ -37,17 +42,30 @@ export class CompressorDashboardPageComponent implements OnInit {
   }
 
   public ngOnInit(): void {
-    const connection = new HubConnectionBuilder()
-      .withUrl("http://localhost:5000/signalr")
-      .build();
+    this.signalR.connect().then(c => {
+      this.connection = c;
 
-    connection.on("send", data => {
-      console.log(data);
-      this.getCompressors();
+      c.listenFor("CompressorsChanged").subscribe(
+        x => {
+          this.getCompressors();
+        },
+        error => {
+          console.error(error);
+        }
+      );
     });
 
-    connection.start();
-
     this.getCompressors();
+  }
+
+  public onDismiss(key: number): void {
+    this.compressorSvc.Dismiss(key).subscribe(
+      () => {
+        this.messageSvc.AddSuccess("griedy", "The compressor was dismissed!");
+      },
+      error => {
+        this.messageSvc.AddError("griedy", error);
+      }
+    );
   }
 }
