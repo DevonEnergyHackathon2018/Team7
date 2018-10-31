@@ -10,47 +10,47 @@ export class CompressorService {
     {
       CompressorId: "comp1",
       CompressorName: "name1",
-      RiskRanking: 0
+      ScoredProbability: 0
     },
     {
       CompressorId: "comp2",
       CompressorName: "name2",
-      RiskRanking: 1
+      ScoredProbability: 1
     },
     {
       CompressorId: "comp3",
       CompressorName: "name3",
-      RiskRanking: 2
+      ScoredProbability: 2
     },
     {
       CompressorId: "comp4",
       CompressorName: "name4",
-      RiskRanking: 4
+      ScoredProbability: 4
     },
     {
       CompressorId: "comp5",
       CompressorName: "name5",
-      RiskRanking: 5
+      ScoredProbability: 5
     },
     {
       CompressorId: "comp6",
       CompressorName: "name6",
-      RiskRanking: 6
+      ScoredProbability: 6
     },
     {
       CompressorId: "comp7",
       CompressorName: "name7",
-      RiskRanking: 7
+      ScoredProbability: 7
     },
     {
       CompressorId: "comp8",
       CompressorName: "name8",
-      RiskRanking: 8
+      ScoredProbability: 8
     },
     {
       CompressorId: "comp9",
       CompressorName: "name9",
-      RiskRanking: 9
+      ScoredProbability: 9
     }
   ];
 

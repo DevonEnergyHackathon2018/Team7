@@ -12,5 +12,7 @@ export class CompressorCardComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    console.log('happens');
+  }
 }

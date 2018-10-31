@@ -11,7 +11,8 @@ import {
   MatListModule,
   MatSelectModule,
   MatSidenavModule,
-  MatToolbarModule
+  MatToolbarModule,
+  MatIconModule
 } from "@angular/material";
 
 import { FileUploadModule } from "primeng/fileupload";
@@ -30,6 +31,7 @@ import { GrowlModule } from "primeng/growl";
     MatSelectModule,
     MatSidenavModule,
     MatToolbarModule,
+    MatIconModule,
     FormsModule,
     ReactiveFormsModule,
     FileUploadModule,
@@ -46,6 +48,7 @@ import { GrowlModule } from "primeng/growl";
     MatSelectModule,
     MatSidenavModule,
     MatToolbarModule,
+    MatIconModule,
     FormsModule,
     ReactiveFormsModule,
     FileUploadModule,

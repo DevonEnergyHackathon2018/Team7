@@ -13,6 +13,6 @@ export class TopNavComponent implements OnInit {
   constructor(private readonly userSvc: UserService) {}
 
   ngOnInit() {
-    this.user = this.userSvc.GetUser();
+    //this.user = this.userSvc.GetUser();
   }
 }
