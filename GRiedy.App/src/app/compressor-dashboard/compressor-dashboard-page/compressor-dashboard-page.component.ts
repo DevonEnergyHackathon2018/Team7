@@ -23,15 +23,15 @@ export class CompressorDashboardPageComponent implements OnInit {
         this.compressors = compressors;
         if (this.compressors) {
           this.messageSvc.AddInfo(
-            "griedy",
+            "greidy",
             `${compressors.length} compressors were found.`
           );
         } else {
-          this.messageSvc.AddInfo("griedy", "no compressors were found.");
+          this.messageSvc.AddInfo("greidy", "no compressors were found.");
         }
       },
       error => {
-        this.messageSvc.AddError("griedy", error);
+        this.messageSvc.AddError("greidy", error);
       }
     );
   }
