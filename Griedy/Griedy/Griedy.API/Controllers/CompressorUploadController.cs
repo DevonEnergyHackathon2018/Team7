@@ -8,17 +8,19 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 
 namespace Griedy.API.Controllers
 {
     public class CompressorUploadController : ApiController
     {
-        private readonly GriedyDataContext _context;
+        //private readonly GriedyDataContext _context;
 
         public CompressorUploadController()
         {
-            _context = new GriedyDataContext();
+            //_context = new GriedyDataContext();
         }
 
         [HttpGet]
@@ -48,48 +50,40 @@ namespace Griedy.API.Controllers
         //}
 
         [HttpPost]
-        public IHttpActionResult Upload()
+        public async Task<IHttpActionResult> Upload()
         {
-            var id = _context.CompressorResults.Select(x => x.Id).Max() + 1;
-            _context.CompressorResults.Add(new CompressorResult() { Id = id, CompressorId = $"ryry-serks-{id}", CompressorName = $"ryry serks {id}", RankedOn = DateTime.Now, RiskRanking = 1 });
-            _context.SaveChanges();
-
-               
-                var memoryStream = await Request.Content.ReadAsMultipartAsync(new MultipartMemoryStreamProvider());
-                foreach (var content in memoryStream.Contents)
-                {
-                    //string fileName = content.Headers.ContentDisposition.FileName;
-                    //string name = content.Headers.ContentDisposition.Name.Replace("\"", string.Empty);
-                    //if (string.IsNullOrWhiteSpace(fileName))
-                    //{
-                    //    continue;
-                    //}
-
-                    List<CompressorInputLine> lines = CompressorCsvReader.Create(await content.ReadAsStreamAsync());
-                    context.Send();
-                }
-            }
-            catch(Exception e)
-            {
-                return InternalServerError(e);
-            }
+            //var id = _context.CompressorResults.Select(x => x.Id).Max() + 1;
+            //_context.CompressorResults.Add(new CompressorResult() { Id = id, CompressorId = $"ryry-serks-{id}", CompressorName = $"ryry serks {id}", RankedOn = DateTime.Now, RiskRanking = 1 });
+            //_context.SaveChanges();
             var signalrContext = GlobalHost.ConnectionManager.GetHubContext<CompressorHub>();
-            signalrContext.Clients.All.CompressorsChanged("I added some compressors.");
+            var memoryStream = await Request.Content.ReadAsMultipartAsync(new MultipartMemoryStreamProvider());
+            foreach (var content in memoryStream.Contents)
+            {
+                //string fileName = content.Headers.ContentDisposition.FileName;
+                //string name = content.Headers.ContentDisposition.Name.Replace("\"", string.Empty);
+                //if (string.IsNullOrWhiteSpace(fileName))
+                //{
+                //    continue;
+                //}
+                List<CompressorInputLine> lines = CompressorCsvReader.Create(await content.ReadAsStreamAsync());
+                var result = await CallModel.CalculateFullSet(lines);
+                signalrContext.Clients.All.CompressorsChanged(result);
+            }
 
             return Ok();
         }
 
         [HttpDelete]
-        public IHttpActionResult Dismiss(int key)
+        public IHttpActionResult Dismiss(string key)    
         {
-            var compressor = _context.CompressorResults.Find(key);
-            if (compressor == null) { return NotFound(); }
+            //var compressor = _context.CompressorResults.Find(key);
+            //if (compressor == null) { return NotFound(); }
 
-            _context.CompressorResults.Remove(compressor);
-            _context.SaveChanges();
+            //_context.CompressorResults.Remove(compressor);
+            //_context.SaveChanges();
 
             var signalrContext = GlobalHost.ConnectionManager.GetHubContext<CompressorHub>();
-            signalrContext.Clients.All.CompressorsChanged("I dismissed a compressor.");
+            signalrContext.Clients.All.CompressorDismissed(key);
 
             return Ok();
         }
