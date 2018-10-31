@@ -38,11 +38,11 @@ namespace Griedy.Lib.DataAccess
 
         private static RiskType GetRisk(double result)
         {
-            if(result < 0.5)
+            if(result < 0.33)
             {
                 return RiskType.LOW;
             }
-            else if(result < 0.75)
+            else if(result < 0.66)
             {
                 return RiskType.MEDIUM;
             }
