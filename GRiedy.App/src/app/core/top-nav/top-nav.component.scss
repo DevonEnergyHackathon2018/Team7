@@ -1,0 +1,11 @@
+header > h1 {
+    padding-left: 50px;
+    background-image: url("../../../assets/logo-small.png");
+    background-size: 50px 29px;
+    background-repeat: no-repeat, no-repeat;
+    background-position: 0px 2px;
+}
+
+header > h1::before {
+    content: " | ";
+}

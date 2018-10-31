@@ -1,0 +1,27 @@
+@import "mixins";
+
+html,
+body {
+  margin: 0px;
+}
+
+.router-link-active {
+  @include primary-background-contrast-color;
+}
+
+.page-content {
+  padding: 1em;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.busy {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.25);
+  background-image: url("../assets/page-loading.gif");
+  background-repeat: no-repeat, no-repeat;
+  background-position: center;
+}

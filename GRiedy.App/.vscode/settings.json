@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/ec89a0f3-b97b-4c7d-a930-0c730734d54f/resourceGroups/Team07/providers/Microsoft.Web/sites/greidyapp",
+    "appService.deploySubpath": "dist"
+}

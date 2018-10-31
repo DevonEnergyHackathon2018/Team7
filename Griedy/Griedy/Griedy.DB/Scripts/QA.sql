@@ -1,0 +1,1 @@
+﻿/* SQL in this file will only be executed by the release pipeline in the QA environment. */

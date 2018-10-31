@@ -1,0 +1,62 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2016
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Griedy.DB", "Griedy\Griedy.DB\Griedy.DB.sqlproj", "{0945CCA1-4743-4C45-A46F-7ABA310667BB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Griedy.Lib", "Griedy\Griedy.Lib\Griedy.Lib.csproj", "{68651FDC-C1E2-4575-885C-38AA65041C2D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Griedy.Lib.Test", "Griedy\Griedy.Lib.Test\Griedy.Lib.Test.csproj", "{CE9F5B74-5D58-451C-8374-A914B4F97DBD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Griedy.API", "Griedy\Griedy.API\Griedy.API.csproj", "{F1F908D4-0473-4758-87F3-0BF225C541C2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Griedy.API.Test", "Griedy\Griedy.API.Test\Griedy.API.Test.csproj", "{B3B85F49-A7D4-4F48-9597-BA26199D121A}"
+EndProject
+Project("{151D2E53-A2C4-4D7D-83FE-D05416EBD58E}") = "Griedy.RG", "Griedy\Griedy.RG\Griedy.RG.deployproj", "{1697CAD7-D5CE-41BF-992E-EA3A6EDF914E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{4BA950AF-4C8A-4CBA-8D80-E778643D243E}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0945CCA1-4743-4C45-A46F-7ABA310667BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0945CCA1-4743-4C45-A46F-7ABA310667BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0945CCA1-4743-4C45-A46F-7ABA310667BB}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{0945CCA1-4743-4C45-A46F-7ABA310667BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0945CCA1-4743-4C45-A46F-7ABA310667BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0945CCA1-4743-4C45-A46F-7ABA310667BB}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{68651FDC-C1E2-4575-885C-38AA65041C2D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68651FDC-C1E2-4575-885C-38AA65041C2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68651FDC-C1E2-4575-885C-38AA65041C2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68651FDC-C1E2-4575-885C-38AA65041C2D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE9F5B74-5D58-451C-8374-A914B4F97DBD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE9F5B74-5D58-451C-8374-A914B4F97DBD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE9F5B74-5D58-451C-8374-A914B4F97DBD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE9F5B74-5D58-451C-8374-A914B4F97DBD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F1F908D4-0473-4758-87F3-0BF225C541C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1F908D4-0473-4758-87F3-0BF225C541C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1F908D4-0473-4758-87F3-0BF225C541C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1F908D4-0473-4758-87F3-0BF225C541C2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B3B85F49-A7D4-4F48-9597-BA26199D121A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3B85F49-A7D4-4F48-9597-BA26199D121A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3B85F49-A7D4-4F48-9597-BA26199D121A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3B85F49-A7D4-4F48-9597-BA26199D121A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1697CAD7-D5CE-41BF-992E-EA3A6EDF914E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1697CAD7-D5CE-41BF-992E-EA3A6EDF914E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1697CAD7-D5CE-41BF-992E-EA3A6EDF914E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1697CAD7-D5CE-41BF-992E-EA3A6EDF914E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8B396A48-DFF5-4A71-9F64-CDA924BE6E68}
+	EndGlobalSection
+EndGlobal

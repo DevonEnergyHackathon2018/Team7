@@ -1,0 +1,10 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <header>
+      <h1>greidy</h1>
+    </header>
+    <span style="flex: 1 1 auto;"></span>
+    <a mat-button [routerLink]="['']"><span class="fa fa-home"></span> home</a>
+    <a *ngIf="user" mat-button [routerLink]="['/current-user']" routerLinkActive="router-link-active"><span class="fa fa-user"></span> {{ user.FullName }}</a>
+  </mat-toolbar-row>
+</mat-toolbar>

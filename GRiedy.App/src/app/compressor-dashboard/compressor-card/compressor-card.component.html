@@ -1,0 +1,16 @@
+<mat-card>
+  <mat-card-header [ngClass]="{'good-rank': compressor.Risk === 1, 'meh-rank': compressor.Risk === 2, 'bad-rank': compressor.Risk === 3}">
+    <mat-card-title>{{compressor.CompressorName}} ({{compressor.Id}})</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <p>{{compressor.CompressorId}}</p>
+    <span *ngIf="compressor.Risk === 1" style="color: green;" class="fa fa-smile-o risk-ranking"></span>
+    <span *ngIf="compressor.Risk === 2" style="color: orange;" class="fa fa-meh-o risk-ranking"></span>
+    <span *ngIf="compressor.Risk === 3" style="color: red;" class="fa fa-frown-o risk-ranking"></span>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-raised-button color="primary" (click)="onDismissButtonClicked(compressor.CompressorName)">
+      <span class="fa fa-times"></span> dismiss
+    </button>
+  </mat-card-actions>
+</mat-card>
