@@ -97,7 +97,7 @@ namespace Griedy.Lib.Models
             return new string[]
             {
                 ""+AssetName,
-                ""+LocalTimestamp,
+                ""+LocalTimestamp?.ToString("u"),
                 ""+UTCMilliseconds,
                 ""+CompressorOilPressure,
                 ""+CompressorOilTemp,
@@ -114,7 +114,7 @@ namespace Griedy.Lib.Models
                 ""+GasFlowRate,
                 ""+GasFlowRate_RAW,
                 ""+Horsepower,
-                ""+LastSuccessfulCommTime,
+                ""+LastSuccessfulCommTime?.ToString("u"),
                 ""+MaxDischargePressure,
                 ""+MaxGasFlowrate,
                 ""+MaxRPMs,

@@ -25,7 +25,12 @@ namespace Griedy.Lib.Business
             while (!parser.EndOfData)
             {
                 string[] tokens = parser.ReadFields();
-                
+
+                //column order from the most recent CSV file we've seen
+                //Id Asset Name Local Timestamp UTC Milliseconds Compressor Oil Pressure Engine Oil Pressure Fuel Pressure Stage 1 Discharge Pressure  Stage 2 Discharge Pressure  Stage 3 Discharge Pressure  Suction Pressure    Max Discharge Pressure Max Suction Pressure    Compressor Oil Temp Cylinder 1 Discharge Temp   Cylinder 2 Discharge Temp   Cylinder 3 Discharge Temp   Cylinder 4 Discharge Temp   Engine Oil Temp Suction Temp RPM Max RPMs    Run Status  SD Status Code Runtime Hrs Downtime Hrs Yest   Gas Flow Rate Gas Flow Rate_RAW   Max Gas Flowrate Compressor Stages Horsepower  Unit Size   Last Successful Comm Time   Pct Successful Msgs Today   Successful Msgs Today Facility Desc Facility ID TOW Comp Name
+                //Successful Msgs Today Facility Desc Facility ID TOW Comp Name
+
+
                 inputLines.Add(new CompressorInputLine()
                 {
                     Id = parseInt(tokens[0]),
@@ -33,39 +38,39 @@ namespace Griedy.Lib.Business
                     LocalTimestamp = parseDate(tokens[2]),
                     UTCMilliseconds = parseInt(tokens[3]),
                     CompressorOilPressure = parseDouble(tokens[4]),
-                    CompressorOilTemp = parseDouble(tokens[5]),
-                    CompressorStages = parseInt(tokens[6]),
-                    Cylinder1DischargeTemp = parseDouble(tokens[7]),
-                    Cylinder2DischargeTemp = parseDouble(tokens[8]),
-                    Cylinder3DischargeTemp = parseDouble(tokens[9]),
-                    Cylinder4DischargeTemp = parseDouble(tokens[10]),
-                    DowntimeHrsYest = parseDouble(tokens[11]),
-                    EngineOilPressure = parseDouble(tokens[12]),
-                    EngineOilTemp = parseDouble(tokens[13]),
-                    FacilityDesc = tokens[14],
-                    FacilityId = tokens[15],
-                    FuelPressure = parseDouble(tokens[16]),
-                    GasFlowRate = parseDouble(tokens[17]),
-                    GasFlowRate_RAW = parseDouble(tokens[18]),
-                    Horsepower = parseDouble(tokens[19]),
-                    LastSuccessfulCommTime = parseDate(tokens[20]),
-                    MaxDischargePressure = parseDouble(tokens[21]),
-                    MaxGasFlowrate = parseDouble(tokens[22]),
-                    MaxRPMs = parseDouble(tokens[23]),
-                    MaxSuctionPressure = parseDouble(tokens[24]),
-                    PctSuccessfulMsgsToday = parseDouble(tokens[25]),
-                    RPM = parseDouble(tokens[26]),
-                    RunStatus = tokens[27],
-                    RuntimeHrs = parseDouble(tokens[28]),
-                    SDStatusCode = tokens[29],
-                    Stage1DischargePressure = parseDouble(tokens[30]),
-                    Stage2DischargePressure = parseDouble(tokens[31]),
-                    Stage3DischargePressure = parseDouble(tokens[32]),
-                    SuccessfulMsgsToday = parseInt(tokens[33]),
-                    SuctionPressure = parseDouble(tokens[34]),
-                    SuctionTemp = parseDouble(tokens[35]),
-                    TOWCompName = tokens[36],
-                    UnitSize = tokens[37]
+                    EngineOilPressure = parseDouble(tokens[5]),
+                    FuelPressure = parseDouble(tokens[6]),
+                    Stage1DischargePressure = parseDouble(tokens[7]),
+                    Stage2DischargePressure = parseDouble(tokens[8]),
+                    Stage3DischargePressure = parseDouble(tokens[9]),
+                    SuctionPressure = parseDouble(tokens[10]),
+                    MaxDischargePressure = parseDouble(tokens[11]),
+                    MaxSuctionPressure = parseDouble(tokens[12]),
+                    CompressorOilTemp = parseDouble(tokens[13]),
+                    Cylinder1DischargeTemp = parseDouble(tokens[14]),
+                    Cylinder2DischargeTemp = parseDouble(tokens[15]),
+                    Cylinder3DischargeTemp = parseDouble(tokens[16]),
+                    Cylinder4DischargeTemp = parseDouble(tokens[17]),
+                    EngineOilTemp = parseDouble(tokens[18]),
+                    SuctionTemp = parseDouble(tokens[19]),
+                    RPM = parseDouble(tokens[20]),
+                    MaxRPMs = parseDouble(tokens[21]),
+                    RunStatus = tokens[22],
+                    SDStatusCode = tokens[23],
+                    RuntimeHrs = parseDouble(tokens[24]),
+                    DowntimeHrsYest = parseDouble(tokens[25]),
+                    GasFlowRate = parseDouble(tokens[26]),
+                    GasFlowRate_RAW = parseDouble(tokens[27]),
+                    MaxGasFlowrate = parseDouble(tokens[28]),
+                    CompressorStages = parseInt(tokens[29]),
+                    Horsepower = parseDouble(tokens[30]),
+                    UnitSize = tokens[31],
+                    LastSuccessfulCommTime = parseDate(tokens[32]),
+                    PctSuccessfulMsgsToday = parseDouble(tokens[33]),
+                    SuccessfulMsgsToday = parseInt(tokens[34]),
+                    FacilityDesc = tokens[35],
+                    FacilityId = tokens[36],
+                    TOWCompName = tokens[37]
                 });
             }
 
