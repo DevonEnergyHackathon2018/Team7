@@ -2,6 +2,6 @@ export interface Compressor {
   Id: number;
   CompressorId: string;
   CompressorName: string;
-  RiskRanking: number;
+  Risk: number;
   Removed: boolean;
 }
