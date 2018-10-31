@@ -20,7 +20,7 @@ namespace Griedy.Lib.DataAccess
             _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", "4Iju/5oz74gaNGcb6cewFo9LazMUXZP99gSiW88cbItwOBFJxVUqjm0bMV4HdBYWZIkysHHZrJLpYET18tJHuA==");
         }
 
-        public static async Task<double> MakeRequest(List<CompressorInputLine> lines)
+        public static async Task<double?> MakeRequest(List<CompressorInputLine> lines)
         {
             var data = new
             {
@@ -29,6 +29,11 @@ namespace Griedy.Lib.DataAccess
                     {
                         ColumnNames = lines.First().Headers(),
                         Values = lines.Select(line => line.Values()).ToArray()
+                        //Values = new string[][]
+                        //{
+                        //    new string[]{ "value", "", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "value", "0", "0", "0", "0", "value", "0", "0", "0", "0", "0", "0", "value", "0", "value", "0", "0", "0", "0", "0", "value" },  
+                        //    new string[] { "value", "", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "value", "0", "0", "0", "0", "value", "0", "0", "0", "0", "0", "0", "value", "0", "value", "0", "0", "0", "0", "0", "value" }
+                        //}
                     }
                 },
                 GlobalParameters = new Dictionary<string, string>()
@@ -48,10 +53,14 @@ namespace Griedy.Lib.DataAccess
             string responseBody = await response.Content.ReadAsStringAsync();
             response.EnsureSuccessStatusCode();
 
-            dynamic result = Newtonsoft.Json.JsonConvert.DeserializeObject(response.Content.ToString());
+            dynamic result = Newtonsoft.Json.JsonConvert.DeserializeObject(responseBody);
             dynamic x = result.Results.output1.value.Values[0];
 
-            return x[x.Count-1];
+            string scoredLabels = x[x.Count-2];
+            string scoredProbabilities = x[x.Count - 1];
+
+            double value;
+            return double.TryParse(scoredProbabilities, out value) ? (double?)value : null;
         }
 
     }
