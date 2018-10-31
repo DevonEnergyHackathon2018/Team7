@@ -36,12 +36,12 @@ export class AppODataConfig extends ODataConfiguration {
     CurrentUserComponent
   ],
   imports: [
+    SharedModule,
     AppRoutingModule,
     BrowserModule,
     BrowserAnimationsModule,
     CoreModule,
-    HttpClientModule,
-    SharedModule
+    HttpClientModule
   ],
   providers: [
     Adal5Service,
