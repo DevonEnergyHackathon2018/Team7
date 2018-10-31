@@ -25,7 +25,7 @@ export function createConfig(): SignalRConfiguration {
   const c = new SignalRConfiguration();
   c.hubName = "CompressorHub";
   c.qs = { user: "cooluser" };
-  c.url = "http://localhost:5000/signalr";
+  c.url = "https://greidyapi.azurewebsites.net/signalr";
   c.logging = true;
 
   // >= v5.0.0

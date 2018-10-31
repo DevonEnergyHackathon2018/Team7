@@ -9,13 +9,13 @@ export class CompressorService {
 
   public GetAll(): Observable<Compressor[]> {
     return this.httpClient.get<Compressor[]>(
-      "http://localhost:5000/api/CompressorUpload"
+      "https://greidyapi.azurewebsites.net/api/CompressorUpload"
     );
   }
 
   public Dismiss(key: number): Observable<any> {
     return this.httpClient.delete(
-      `http://localhost:5000/api/CompressorUpload?key=${key}`
+      `https://greidyapi.azurewebsites.net/api/CompressorUpload?key=${key}`
     );
   }
 }

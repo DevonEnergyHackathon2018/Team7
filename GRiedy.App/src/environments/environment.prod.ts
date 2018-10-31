@@ -4,8 +4,8 @@ export const environment = {
     tenant: "dvnhackathon.onmicrosoft.com",
     clientId: "14423e33-eb38-4bbe-9620-4029619afef4",
     endpoints: {
-      "http://localhost:5000/": "14423e33-eb38-4bbe-9620-4029619afef4"
+      "https://greidyapi.azurewebsites.net": "14423e33-eb38-4bbe-9620-4029619afef4"
     }
   },
-  appBaseUrl: "http://localhost:5000/"
+  appBaseUrl: "https://greidyapi.azurewebsites.net"
 };
