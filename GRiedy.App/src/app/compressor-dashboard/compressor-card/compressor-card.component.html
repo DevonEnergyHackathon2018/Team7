@@ -3,6 +3,8 @@
     <mat-card-title>{{compressor.CompressorName}}</mat-card-title>
   </mat-card-header>
   <mat-card-content>
-    <!-- <mat-icon>sentiment_very_satisified</mat-icon> -->
+    <mat-icon *ngIf="compressor.ScoredProbability <= 1">sentiment_very_satisfied</mat-icon>
+    <mat-icon *ngIf="compressor.ScoredProbability === 2">sentiment_satisfied</mat-icon>
+    <mat-icon *ngIf="compressor.ScoredProbability >= 3">sentiment_very_dissatisfied</mat-icon>
   </mat-card-content>
 </mat-card>
