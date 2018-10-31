@@ -28,6 +28,7 @@ namespace Griedy.Lib.DataAccess
                     input1 = new
                     {
                         ColumnNames = lines.First().Headers(),
+                        //Values = new string[][] { lines.Select(line => line.Values()).First() }
                         Values = lines.Select(line => line.Values()).ToArray()
                         //Values = new string[][]
                         //{

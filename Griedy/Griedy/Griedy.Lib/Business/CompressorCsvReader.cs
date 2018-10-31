@@ -92,20 +92,20 @@ namespace Griedy.Lib.Business
         {
             if (string.IsNullOrWhiteSpace(token))
             {
-                return null;
+                return 0;
             }
             int x;
-            return int.TryParse(token, out x) ? (int?)x : null;
+            return int.TryParse(token, out x) ? (int?)x : 0;
         }
 
         public static double? parseDouble(string token)
         {
             if (string.IsNullOrWhiteSpace(token))
             {
-                return null;
+                return 0;
             }
             double x;
-            return double.TryParse(token, out x) ? (double?)x : null;
+            return double.TryParse(token, out x) ? (double?)x : 0;
         }
 
     }

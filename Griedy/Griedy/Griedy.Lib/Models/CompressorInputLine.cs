@@ -94,10 +94,9 @@ namespace Griedy.Lib.Models
 
         public string[] Values()
         {
-            return new string[]
-            {
-                ""+AssetName,
-                ""+ (LocalTimestamp.HasValue ? LocalTimestamp.Value.ToLongDateString() : ""),
+            return new string[] {
+                AssetName,
+                LocalTimestamp.HasValue ? LocalTimestamp.ToString() : "",
                 ""+UTCMilliseconds,
                 ""+CompressorOilPressure,
                 ""+CompressorOilTemp,
@@ -109,28 +108,67 @@ namespace Griedy.Lib.Models
                 ""+DowntimeHrsYest,
                 ""+EngineOilPressure,
                 ""+EngineOilTemp,
-                ""+FacilityDesc,
+                FacilityDesc,
                 ""+FuelPressure,
                 ""+GasFlowRate,
                 ""+GasFlowRate_RAW,
                 ""+Horsepower,
-                ""+(LastSuccessfulCommTime.HasValue ? LastSuccessfulCommTime.Value.ToLongDateString() : ""),
+                LastSuccessfulCommTime.HasValue ? LastSuccessfulCommTime.ToString() : "",
                 ""+MaxDischargePressure,
                 ""+MaxGasFlowrate,
                 ""+MaxRPMs,
                 ""+MaxSuctionPressure,
                 ""+PctSuccessfulMsgsToday,
-                ""+RPM,
-                ""+RunStatus,
+                ""+(RPM.HasValue ? ""+(int)RPM.Value : ""),
+                RunStatus,
                 ""+RuntimeHrs,
-                ""+SDStatusCode,
+                SDStatusCode,
                 ""+Stage1DischargePressure,
                 ""+Stage2DischargePressure,
                 ""+Stage3DischargePressure,
                 ""+SuctionPressure,
                 ""+SuctionTemp,
-                ""+UnitSize
-            };
+                UnitSize };
+            //return new string[]
+            //{
+            //    "value",//+AssetName,
+            //    "",//+ (LocalTimestamp.HasValue ? LocalTimestamp.Value.ToString() : ""),
+            //    "0",//+UTCMilliseconds,
+            //    "0",//+CompressorOilPressure,
+            //    "0",//+CompressorOilTemp,
+            //    "0",//+CompressorStages,
+            //    "0",//+Cylinder1DischargeTemp,
+            //    "0",//+Cylinder2DischargeTemp,
+            //    "0",//+Cylinder3DischargeTemp,
+            //    "0",//+Cylinder4DischargeTemp,
+            //    "0",//+DowntimeHrsYest,
+            //    "0",//+EngineOilPressure,
+            //    "0",//+EngineOilTemp,
+            //    "0",//+FacilityDesc,
+            //    "0",//+FuelPressure,
+            //    "0",//+GasFlowRate,
+            //    "0",//+GasFlowRate_RAW,
+            //    "0",//+Horsepower,
+            //    "value",//+(LastSuccessfulCommTime.HasValue ? LastSuccessfulCommTime.Value.ToString() : ""),
+            //    "0",//+MaxDischargePressure,
+            //    "0",//+MaxGasFlowrate,
+            //    "0",//+MaxRPMs,
+            //    "0",//+MaxSuctionPressure,
+            //    "value",//+PctSuccessfulMsgsToday,
+            //    "0",//+RPM,
+            //    "0",//+RunStatus,
+            //    "0",//+RuntimeHrs,
+            //    "0",
+            //    "0",
+            //    "0",
+            //    "value",//+SDStatusCode,
+            //    "0",//+Stage1DischargePressure,
+            //    "0",//+Stage2DischargePressure,
+            //    "0",//+Stage3DischargePressure,
+            //    "0",//+SuctionPressure,
+            //    "0",//+SuctionTemp,
+            //    "value",//+UnitSize
+            //};
         }
 
     }
