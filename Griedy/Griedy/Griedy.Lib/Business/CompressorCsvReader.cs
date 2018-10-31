@@ -4,25 +4,28 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.VisualBasic.FileIO;
+using System.IO;
 
 namespace Griedy.Lib.Business
 {
     public static class CompressorCsvReader
     {
 
-        public static List<CompressorInputLine> Create(string tsv)
+        public static List<CompressorInputLine> Create(Stream inputFile)
         {
-            string[] lines = tsv.Split('\n');
-            var inputLines = new List<CompressorInputLine>();
-            for(int i = 1; i < lines.Length; i++)
-            {
-                string line = lines[i];
-                if(string.IsNullOrWhiteSpace(line))
-                {
-                    continue;
-                }
+            var parser = new Microsoft.VisualBasic.FileIO.TextFieldParser(inputFile);
+            parser.TextFieldType = Microsoft.VisualBasic.FileIO.FieldType.Delimited;
+            parser.Delimiters = new string[] { "," };
 
-                string[] tokens = line.Split(',');
+            //skip the first line, it's header info
+            parser.ReadLine();
+
+            var inputLines = new List<CompressorInputLine>();
+            while (!parser.EndOfData)
+            {
+                string[] tokens = parser.ReadFields();
+                
                 inputLines.Add(new CompressorInputLine()
                 {
                     Id = parseInt(tokens[0]),
