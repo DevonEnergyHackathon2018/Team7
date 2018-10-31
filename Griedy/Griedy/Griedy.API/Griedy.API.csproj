@@ -288,14 +288,13 @@
     <Compile Include="Startup.cs" />
     <Compile Include="UserDataAccess.cs" />
   </ItemGroup>
-  <ItemGroup />
-  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\Griedy.Lib\Griedy.Lib.csproj">
-      <Project>{bf69dd75-9ab6-4579-80f1-877c65f0ff82}</Project>
+      <Project>{68651fdc-c1e2-4575-885c-38aa65041c2d}</Project>
       <Name>Griedy.Lib</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

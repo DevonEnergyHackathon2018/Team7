@@ -35,7 +35,7 @@ namespace Griedy.API.Controllers
             using (var instream = File.OpenRead("C:/temp/input.csv"))
             {
                 var lines = CompressorCsvReader.Create(instream);
-                var result = await CallModel.MakeRequest(lines);
+                var result = await CallModel.CalculateFullSet(lines);
 
                 instream.Close();
                 return Ok();

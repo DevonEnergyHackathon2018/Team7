@@ -1,4 +1,5 @@
-﻿using Griedy.Lib.Models;
+﻿using Griedy.Lib.Enums;
+using Griedy.Lib.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +21,38 @@ namespace Griedy.Lib.DataAccess
             _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", "4Iju/5oz74gaNGcb6cewFo9LazMUXZP99gSiW88cbItwOBFJxVUqjm0bMV4HdBYWZIkysHHZrJLpYET18tJHuA==");
         }
 
-        public static async Task<double?> MakeRequest(List<CompressorInputLine> lines)
+        public async static Task<List<CompressorAggregatedRisk>> CalculateFullSet(List<CompressorInputLine> lines)
+        {
+            var retval = new List<CompressorAggregatedRisk>();
+            //separate call for each unique compressor (asset name)
+            var compGroups = lines.GroupBy(l => l.AssetName);
+
+            foreach (var g in compGroups)
+            {
+                var result = await MakeRequest(g.ToList());
+                retval.Add(new CompressorAggregatedRisk { CompressorName = g.Key, Risk = GetRisk(result) });
+            }
+
+            return retval;
+        }
+
+        private static RiskType GetRisk(double result)
+        {
+            if(result < 0.5)
+            {
+                return RiskType.LOW;
+            }
+            else if(result < 0.75)
+            {
+                return RiskType.MEDIUM;
+            }
+            else
+            {
+                return RiskType.HIGH;
+            }
+        }
+
+        private static async Task<double> MakeRequest(List<CompressorInputLine> lines)
         {
             var data = new
             {
@@ -39,6 +71,7 @@ namespace Griedy.Lib.DataAccess
                 },
                 GlobalParameters = new Dictionary<string, string>()
             };
+
             string json = Newtonsoft.Json.JsonConvert.SerializeObject(data);
             //var baseUri = new Uri("https://ussouthcentral.services.azureml.net/workspaces/732d4419dcd94688b8d2701c48678ca5/services/649dfea7053b4232956810cff89d03ce/execute?api-version=2.0&format=swagger");
             var baseUri = new Uri("https://ussouthcentral.services.azureml.net/workspaces/732d4419dcd94688b8d2701c48678ca5/services/9be3e68c9b5146b0917b38f1dea22c9a/execute?api-version=2.0&details=true");
@@ -55,13 +88,34 @@ namespace Griedy.Lib.DataAccess
             response.EnsureSuccessStatusCode();
 
             dynamic result = Newtonsoft.Json.JsonConvert.DeserializeObject(responseBody);
-            dynamic x = result.Results.output1.value.Values[0];
 
-            string scoredLabels = x[x.Count-2];
-            string scoredProbabilities = x[x.Count - 1];
+            //get all the final probabilities
+            dynamic valueSet = result.Results.output1.value.Values;
 
-            double value;
-            return double.TryParse(scoredProbabilities, out value) ? (double?)value : null;
+            //calculate an average of them.  this being dynamic made me do it the old-school way instead of the LINQ way.
+            double aggregator = 0.0;
+            long count = 0;
+
+            foreach (var val in valueSet)
+            {
+                string prob = val[val.Count - 1];
+                double dubVal = 0.0;
+
+                if(double.TryParse(prob, out dubVal))
+                {
+                    aggregator += dubVal;
+                    count++;
+                }
+            }
+           
+            if(count > 0)
+            {
+                return aggregator / (double)count;
+            }
+            else
+            {
+                return 0.0;
+            }
         }
 
     }
