@@ -1,8 +1,17 @@
 # Team7
 
 DVN Hackathon
-
 Compressor failure prediciton problem
+
+Deployed publicly at:
+(application)
+https://greidyapp.azurewebsites.net
+
+(api)
+https://greidyapi.azurewebsites.net
+
+
+
 
 Technologies used
 * Angular
