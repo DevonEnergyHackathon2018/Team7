@@ -32,7 +32,7 @@ namespace Griedy.API.Controllers
         public async Task<IHttpActionResult> Example()
         {
             //string csv = File.ReadAllText("C:/temp/input.csv");
-            using (var instream = File.OpenRead("C:/temp/input.csv"))
+            using (var instream = File.OpenRead("C:/temp/input.tsv"))
             {
                 var lines = CompressorCsvReader.Create(instream);
                 var result = await CallModel.CalculateFullSet(lines);

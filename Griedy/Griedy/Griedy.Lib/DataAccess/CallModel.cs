@@ -93,8 +93,15 @@ namespace Griedy.Lib.DataAccess
             dynamic valueSet = result.Results.output1.value.Values;
 
             //calculate an average of them.  this being dynamic made me do it the old-school way instead of the LINQ way.
+            long x = 0;
+
             double aggregator = 0.0;
             long count = 0;
+
+            long length = valueSet.Count;
+            double lastHourAgg = 0.0;
+            long lastHourCnt = 0;
+
 
             foreach (var val in valueSet)
             {
@@ -105,12 +112,25 @@ namespace Griedy.Lib.DataAccess
                 {
                     aggregator += dubVal;
                     count++;
+
+                    if (length - x < 60)
+                    {
+                        lastHourAgg += dubVal;
+                        lastHourCnt++;
+                    }
                 }
+                x++;
             }
            
             if(count > 0)
             {
-                return aggregator / (double)count;
+                var avg = aggregator / (double)count;
+                var lastHourAvg = 0.0;
+                if(lastHourCnt > 0)
+                {
+                    lastHourAvg = lastHourAgg / (double)lastHourCnt;
+                }
+                return Math.Max(avg, lastHourAvg);
             }
             else
             {
